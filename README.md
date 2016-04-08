@@ -12,6 +12,6 @@ Thus, my goals with this repo are as follows:
 - Set up a naming convention to ease working with templates from automated API scripts
 - Utilize the description fields for templates, items and triggers to document behaviour inline as much as possible.
 - Graph ALL the things, visualizing gathered data is key in your daily operations
-
+- When plausible, define host screens for easy access to relevant data.
 
 
