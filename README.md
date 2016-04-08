@@ -1,5 +1,7 @@
 # zabbix-templates-30
-This repository contains my efforts to create a repository based on the templates that we're shipped with Zabbix 3.0.
+
+## Introduction
+This repository contains my efforts to create a repository based on the templates that were shipped with Zabbix 3.0.
 The shipped templates are far from usable for a production deployment. They are also kept fairly basic as to not scare new users away from the product.
 However, Zabbix has some very powerful features that, if used correctly, will bring your monitoring to a new level.
 
