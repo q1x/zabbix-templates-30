@@ -41,7 +41,7 @@ Spaces will not be allowed, as this could break some poorly written scripts and 
 An underscore '_' is used as a word seperator within the name. Template names will be written in lowercase.
 
 Names consist of a number of fields and will always start with the first field containing the prefix 't_' to indicate the fact that we are dealing with a template. 
-The second field contains a 3 character denominator for the template type (see [Hierarchy](#Template-Hierarchy)):
+The second field contains a 3 character denominator for the template type (see [Hierarchy](#template-hierarchy)):
 
 - Modules: mod
 - Roles: rol
