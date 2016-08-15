@@ -24,7 +24,7 @@ The advantage of using template linking in multiple layers is that you can overr
 Task templates are the lowest layer of templates used in the template hierarchy. They contain items, triggers and graphs to only monitor a specific function of a host. For instance, the template `t_task_icmp_ping` only monitors host reachability via ICMP.
 
 
-The usermacros used in the taks templates provide sane defaults for item parameters and triggers to function. If needed, they can be overruled from higher level templates by overriding the [user macros](https://www.zabbix.com/documentation/3.0/manual/config/macros/usermacros).
+The usermacros used in the task templates provide sane defaults for item parameters and triggers to function. If needed, they can be overruled from higher level templates by overriding the [user macros](https://www.zabbix.com/documentation/3.0/manual/config/macros/usermacros).
 
 It is allowed to create triggers on these templates, however, as they only give a very narrow insight into only a narrow part of the overal host state, it is recommended to only configure triggers with a severity level up to the Average severity level.
 
@@ -40,7 +40,7 @@ The duty level templates should not contain any items, except for [calculated it
 Triggers on this level in the template hierarchy will represent the state of a certain duty that the host has and therefor can be up to 'High' in severity level.
 
 Graphs can combine items from multiple module level templates if so desired.
-Also, it makes sense to create host screens on this level to give a broader overview of a hosts functioning.
+Also, it makes sense to create host screens on this level to give a broader overview of a hosts functioning although the Role templates might be better suited for this.
 
 ### Roles
 
@@ -48,12 +48,12 @@ Role templates merge the various services into a hosts role, for instance `LAMP 
 
 If needed, [calculated items](https://www.zabbix.com/documentation/3.0/manual/config/items/itemtypes/calculated) and triggers can be used to provide host level information. Triggers can go up to the disaster severity level.
 
-The role level templates are very well suited to configure a host level dashboard in the form of a host screen.
+The role level templates are perfect to configure a host level dashboard in the form of a host screen.
 
 ### Profiles
 
 The sole purpose of the profile template is to add a layer in the hierarchy where we can override lower level usermacros to set default macros for a host role within a certain environment.
-Profile templates don't contain any graphs, screens, items or triggers, all of those are inherited from lower level templates.
+Profile templates *don't* contain any graphs, screens, items or triggers, all of those are inherited from lower level templates.
 
 A profile template should be the only (exclusive) template that is linked to an actual host.
 
@@ -101,4 +101,13 @@ The macro name consists of several fields. The first field specifies the primary
 
 - `I_`:	Items (parameters)
 - `T_`:	Triggers (function parameters and expressions)
+
+## Available Templates
+
+Navigate the tree or follow these links to see the templates that are available within this repository.
+
+- [Task templates](https://github.com/q1x/zabbix-templates-30/tree/master/tasks)
+- [Duty templates](https://github.com/q1x/zabbix-templates-30/tree/master/duties)
+- [Role templates](https://github.com/q1x/zabbix-templates-30/tree/master/roles)
+- [Profile templates](https://github.com/q1x/zabbix-templates-30/tree/master/profiles)
 
