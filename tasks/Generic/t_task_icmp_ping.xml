@@ -4,17 +4,17 @@
     <date>2016-04-09T17:22:26Z</date>
     <groups>
         <group>
-            <name>T_Module_Generic</name>
+            <name>Templates::Tasks::Generic</name>
         </group>
     </groups>
     <templates>
         <template>
-            <template>t_mod_icmp_ping</template>
-            <name>Template ICMP Ping</name>
+            <template>t_task_icmp_ping</template>
+            <name>Template::Task::ICMP_Ping</name>
             <description>Performs reachability checks via ICMP echo replies.</description>
             <groups>
                 <group>
-                    <name>T_Module_Generic</name>
+                    <name>Templates::Tasks::Generic</name>
                 </group>
             </groups>
             <applications>
@@ -27,7 +27,7 @@
             </applications>
             <items>
                 <item>
-                    <name>ICMP loss threshold</name>
+                    <name>ICMP: loss threshold</name>
                     <type>15</type>
                     <snmp_community/>
                     <multiplier>0</multiplier>
@@ -70,7 +70,7 @@
                     <logtimefmt/>
                 </item>
                 <item>
-                    <name>ICMP loss</name>
+                    <name>ICMP: loss</name>
                     <type>3</type>
                     <snmp_community/>
                     <multiplier>0</multiplier>
@@ -113,7 +113,7 @@
                     <logtimefmt/>
                 </item>
                 <item>
-                    <name>ICMP response time threshold</name>
+                    <name>ICMP: response time threshold</name>
                     <type>15</type>
                     <snmp_community/>
                     <multiplier>0</multiplier>
@@ -156,7 +156,7 @@
                     <logtimefmt/>
                 </item>
                 <item>
-                    <name>ICMP response time</name>
+                    <name>ICMP: response time</name>
                     <type>3</type>
                     <snmp_community/>
                     <multiplier>0</multiplier>
@@ -199,7 +199,7 @@
                     <logtimefmt/>
                 </item>
                 <item>
-                    <name>ICMP ping</name>
+                    <name>ICMP: ping</name>
                     <type>3</type>
                     <snmp_community/>
                     <multiplier>0</multiplier>
@@ -289,7 +289,7 @@
             <templates/>
             <screens>
                 <screen>
-                    <name>ICMP Ping</name>
+                    <name>ICMP: Ping</name>
                     <hsize>1</hsize>
                     <vsize>2</vsize>
                     <screen_items>
@@ -310,7 +310,7 @@
                             <sort_triggers>0</sort_triggers>
                             <resource>
                                 <name>ICMP: Reachability (1=Up, 0=Down)</name>
-                                <host>t_mod_icmp_ping</host>
+                                <host>t_task_icmp_ping</host>
                             </resource>
                             <max_columns>3</max_columns>
                             <application/>
@@ -332,7 +332,7 @@
                             <sort_triggers>0</sort_triggers>
                             <resource>
                                 <name>ICMP: Performance</name>
-                                <host>t_mod_icmp_ping</host>
+                                <host>t_task_icmp_ping</host>
                             </resource>
                             <max_columns>3</max_columns>
                             <application/>
@@ -344,7 +344,7 @@
     </templates>
     <triggers>
         <trigger>
-            <expression>{t_mod_icmp_ping:icmppingloss[{HOST.CONN},{$I_ICMP_PACKETS:LOSS},{$I_ICMP_INTERVAL:LOSS},{$I_ICMP_SIZE:LOSS},{$I_ICMP_TIMEOUT:LOSS}].min({$T_ICMP_LOSS_TIME})}&gt;{$T_ICMP_LOSS_THRESH}</expression>
+            <expression>{t_task_icmp_ping:icmppingloss[{HOST.CONN},{$I_ICMP_PACKETS:LOSS},{$I_ICMP_INTERVAL:LOSS},{$I_ICMP_SIZE:LOSS},{$I_ICMP_TIMEOUT:LOSS}].min({$T_ICMP_LOSS_TIME})}&gt;{$T_ICMP_LOSS_THRESH}</expression>
             <name>ICMP: Ping loss is too high on {HOST.NAME}</name>
             <url/>
             <status>0</status>
@@ -355,12 +355,12 @@ This could be due to a faulty or flapping link or CPU load on the monitored host
             <dependencies>
                 <dependency>
                     <name>ICMP: {HOST.NAME} is not responding to ping requests</name>
-                    <expression>{t_mod_icmp_ping:icmpping[{HOST.CONN},{$I_ICMP_PACKETS:PING},{$I_ICMP_INTERVAL:PING},{$I_ICMP_SIZE:PING},{$I_ICMP_TIMEOUT:PING}].max({$T_ICMP_PING_TIME})}=0</expression>
+                    <expression>{t_task_icmp_ping:icmpping[{HOST.CONN},{$I_ICMP_PACKETS:PING},{$I_ICMP_INTERVAL:PING},{$I_ICMP_SIZE:PING},{$I_ICMP_TIMEOUT:PING}].max({$T_ICMP_PING_TIME})}=0</expression>
                 </dependency>
             </dependencies>
         </trigger>
         <trigger>
-            <expression>{t_mod_icmp_ping:icmppingsec[{HOST.CONN},{$I_ICMP_PACKETS:PINGSEC},{$I_ICMP_INTERVAL:PINGSEC},{$I_ICMP_SIZE:PINGSEC},{$I_ICMP_TIMEOUT:PINGSEC}].avg({$T_ICMP_PINGSEC_TIME})}&gt;{$T_ICMP_PINGSEC_THRESH}</expression>
+            <expression>{t_task_icmp_ping:icmppingsec[{HOST.CONN},{$I_ICMP_PACKETS:PINGSEC},{$I_ICMP_INTERVAL:PINGSEC},{$I_ICMP_SIZE:PINGSEC},{$I_ICMP_TIMEOUT:PINGSEC}].avg({$T_ICMP_PINGSEC_TIME})}&gt;{$T_ICMP_PINGSEC_THRESH}</expression>
             <name>ICMP: Ping response time is too high on {HOST.NAME}</name>
             <url/>
             <status>0</status>
@@ -371,12 +371,12 @@ This could be caused by link congestion, high CPU loads on the host or a great d
             <dependencies>
                 <dependency>
                     <name>ICMP: {HOST.NAME} is not responding to ping requests</name>
-                    <expression>{t_mod_icmp_ping:icmpping[{HOST.CONN},{$I_ICMP_PACKETS:PING},{$I_ICMP_INTERVAL:PING},{$I_ICMP_SIZE:PING},{$I_ICMP_TIMEOUT:PING}].max({$T_ICMP_PING_TIME})}=0</expression>
+                    <expression>{t_task_icmp_ping:icmpping[{HOST.CONN},{$I_ICMP_PACKETS:PING},{$I_ICMP_INTERVAL:PING},{$I_ICMP_SIZE:PING},{$I_ICMP_TIMEOUT:PING}].max({$T_ICMP_PING_TIME})}=0</expression>
                 </dependency>
             </dependencies>
         </trigger>
         <trigger>
-            <expression>{t_mod_icmp_ping:icmpping[{HOST.CONN},{$I_ICMP_PACKETS:PING},{$I_ICMP_INTERVAL:PING},{$I_ICMP_SIZE:PING},{$I_ICMP_TIMEOUT:PING}].max({$T_ICMP_PING_TIME})}=0</expression>
+            <expression>{t_task_icmp_ping:icmpping[{HOST.CONN},{$I_ICMP_PACKETS:PING},{$I_ICMP_INTERVAL:PING},{$I_ICMP_SIZE:PING},{$I_ICMP_TIMEOUT:PING}].max({$T_ICMP_PING_TIME})}=0</expression>
             <name>ICMP: {HOST.NAME} is not responding to ping requests</name>
             <url/>
             <status>0</status>
@@ -414,7 +414,7 @@ It could be down or ping is being blocked by a firewall.</description>
                     <calc_fnc>1</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>t_mod_icmp_ping</host>
+                        <host>t_task_icmp_ping</host>
                         <key>IcmpPingResponseThresh[{$T_ICMP_PINGSEC_THRESH}]</key>
                     </item>
                 </graph_item>
@@ -426,7 +426,7 @@ It could be down or ping is being blocked by a firewall.</description>
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>t_mod_icmp_ping</host>
+                        <host>t_task_icmp_ping</host>
                         <key>icmppingsec[{HOST.CONN},{$I_ICMP_PACKETS:PINGSEC},{$I_ICMP_INTERVAL:PINGSEC},{$I_ICMP_SIZE:PINGSEC},{$I_ICMP_TIMEOUT:PINGSEC}]</key>
                     </item>
                 </graph_item>
@@ -438,7 +438,7 @@ It could be down or ping is being blocked by a firewall.</description>
                     <calc_fnc>1</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>t_mod_icmp_ping</host>
+                        <host>t_task_icmp_ping</host>
                         <key>IcmpLossThresh[{$T_ICMP_LOSS_THRESH}]</key>
                     </item>
                 </graph_item>
@@ -450,7 +450,7 @@ It could be down or ping is being blocked by a firewall.</description>
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>t_mod_icmp_ping</host>
+                        <host>t_task_icmp_ping</host>
                         <key>icmppingloss[{HOST.CONN},{$I_ICMP_PACKETS:LOSS},{$I_ICMP_INTERVAL:LOSS},{$I_ICMP_SIZE:LOSS},{$I_ICMP_TIMEOUT:LOSS}]</key>
                     </item>
                 </graph_item>
@@ -482,7 +482,7 @@ It could be down or ping is being blocked by a firewall.</description>
                     <calc_fnc>1</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>t_mod_icmp_ping</host>
+                        <host>t_task_icmp_ping</host>
                         <key>icmpping[{HOST.CONN},{$I_ICMP_PACKETS:PING},{$I_ICMP_INTERVAL:PING},{$I_ICMP_SIZE:PING},{$I_ICMP_TIMEOUT:PING}]</key>
                     </item>
                 </graph_item>
