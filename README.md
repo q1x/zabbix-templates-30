@@ -64,16 +64,18 @@ A profile template should be the only (exclusive) template that is linked to an 
 #### Visible name
 Templates have 2 name fields in Zabbix, the 'Template name' and the 'Visible name'.
 We use the 'Visible name' to represent the template in human readable form as it is the name a Zabbix operator will normally see when using the GUI.
-The name always starts with the string 'Template' followed by a clear description of it's function.
-The visible name can contains spaces to seperate words.
+The name always starts with the string 'Template' followed by the template type (Task, Duty, Role or Profile) and a description of the template.
+A double colon is uses as a field seperator. Use underscores instead of spaces.
+
+e.g.: `Template::Task::ICMP_Ping`
 
 #### Template name
 The more technical 'Template name' is the name that we will mostly use in scripts and within Zabbix configuration.
 As such, we will define stricter rules in using this naming field.
 Spaces will not be allowed, as this could break some poorly written scripts and makes parsing of the names more difficult.
-An underscore '_' is used as a word seperator within the name. Template names will be written in lowercase.
+An underscore is used as a word seperator within the name. Template names will be written in lowercase.
 
-Names consist of a number of fields and will always start with the first field containing the prefix 't_' to indicate the fact that we are dealing with a template. 
+Names consist of a number of fields and will always start with the first field containing the prefix `t_` to indicate the fact that we are dealing with a template. 
 The second field contains a denominator for the template type (see [Hierarchy](#template-hierarchy)):
 
 - Tasks: `task`
