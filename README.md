@@ -85,16 +85,20 @@ The second field contains a denominator for the template type (see [Hierarchy](#
 
 
 ### Host groups
+Host groups are used to group templates per template type (see [Hierarchy](#template-hierarchy)) and per category.
 
+As host groups lack hierarchy (see [ZBXNEXT-1262](https://support.zabbix.com/browse/ZBXNEXT-1262)), we need to define another way to organize the templates.
+To allow easier navigation of these groups, a double colon (::) is used to seperate the various fields within the group name.
+This will also make it easier to parse the group names in API scripts until [ZBXNEXT-2934](https://support.zabbix.com/browse/ZBXNEXT-2934) is implemented.
 
+e.g.: `Templates::Tasks::Generic`
 
 ### Usermacros
 By Zabbix specifications, user macros are always written in upper case and cannot contain spaces (see [documentation](https://www.zabbix.com/documentation/3.0/manual/config/macros/usermacros)).
 Therefor, we will use the underscore as a word seperator within the macro name.
 
-The macro name consists of several fields. The first field specifies the functional field for the macro. This will allow us to quickly see where a macro is used.
+The macro name consists of several fields. The first field specifies the primary functional level for the macro. This will allow us to quickly see where a macro is used.
 
 - `I_`:	Items (parameters)
 - `T_`:	Triggers (function parameters and expressions)
-
 
