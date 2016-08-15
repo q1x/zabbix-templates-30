@@ -4,17 +4,17 @@
     <date>2016-04-09T17:22:34Z</date>
     <groups>
         <group>
-            <name>T_Module_Services</name>
+            <name>Templates::Tasks::Services</name>
         </group>
     </groups>
     <templates>
         <template>
-            <template>t_mod_service_imap</template>
-            <name>Template IMAP Service</name>
+            <template>t_task_service_imap</template>
+            <name>Template::Task::Service::IMAP</name>
             <description/>
             <groups>
                 <group>
-                    <name>T_Module_Services</name>
+                    <name>Templates::Tasks::Services</name>
                 </group>
             </groups>
             <applications>
@@ -27,7 +27,7 @@
             </applications>
             <items>
                 <item>
-                    <name>IMAP response time threshold</name>
+                    <name>IMAP: response time threshold</name>
                     <type>15</type>
                     <snmp_community/>
                     <multiplier>0</multiplier>
@@ -70,7 +70,7 @@
                     <logtimefmt/>
                 </item>
                 <item>
-                    <name>IMAP service performance</name>
+                    <name>IMAP: service performance</name>
                     <type>3</type>
                     <snmp_community/>
                     <multiplier>0</multiplier>
@@ -113,7 +113,7 @@
                     <logtimefmt/>
                 </item>
                 <item>
-                    <name>IMAP service state</name>
+                    <name>IMAP: service state</name>
                     <type>3</type>
                     <snmp_community/>
                     <multiplier>0</multiplier>
@@ -178,64 +178,11 @@
                 </macro>
             </macros>
             <templates/>
-            <screens>
-                <screen>
-                    <name>IMAP Service</name>
-                    <hsize>1</hsize>
-                    <vsize>2</vsize>
-                    <screen_items>
-                        <screen_item>
-                            <resourcetype>0</resourcetype>
-                            <width>900</width>
-                            <height>200</height>
-                            <x>0</x>
-                            <y>0</y>
-                            <colspan>1</colspan>
-                            <rowspan>1</rowspan>
-                            <elements>0</elements>
-                            <valign>0</valign>
-                            <halign>0</halign>
-                            <style>0</style>
-                            <url/>
-                            <dynamic>0</dynamic>
-                            <sort_triggers>0</sort_triggers>
-                            <resource>
-                                <name>IMAP: Service state (1=Up, 0=Down)</name>
-                                <host>t_mod_service_imap</host>
-                            </resource>
-                            <max_columns>3</max_columns>
-                            <application/>
-                        </screen_item>
-                        <screen_item>
-                            <resourcetype>0</resourcetype>
-                            <width>900</width>
-                            <height>200</height>
-                            <x>0</x>
-                            <y>1</y>
-                            <colspan>1</colspan>
-                            <rowspan>1</rowspan>
-                            <elements>0</elements>
-                            <valign>0</valign>
-                            <halign>0</halign>
-                            <style>0</style>
-                            <url/>
-                            <dynamic>0</dynamic>
-                            <sort_triggers>0</sort_triggers>
-                            <resource>
-                                <name>IMAP: Performance</name>
-                                <host>t_mod_service_imap</host>
-                            </resource>
-                            <max_columns>3</max_columns>
-                            <application/>
-                        </screen_item>
-                    </screen_items>
-                </screen>
-            </screens>
         </template>
     </templates>
     <triggers>
         <trigger>
-            <expression>{t_mod_service_imap:net.tcp.service[imap,{HOST.CONN},{$I_IMAP_PORT}].max({$T_IMAP_STATE_TIME})}=0</expression>
+            <expression>{t_task_service_imap:net.tcp.service[imap,{HOST.CONN},{$I_IMAP_PORT}].max({$T_IMAP_STATE_TIME})}=0</expression>
             <name>Telnet: Service is down on {HOST.NAME}</name>
             <url/>
             <status>0</status>
@@ -246,7 +193,7 @@ This could be caused by a firewall blocking the traffic, or a faulty imap repons
             <dependencies/>
         </trigger>
         <trigger>
-            <expression>{t_mod_service_imap:net.tcp.service[imap,{HOST.CONN},{$I_IMAP_PORT}].avg({$T_IMAP_PERF_TIME})}&gt;{$T_IMAP_PERF_THRESH}</expression>
+            <expression>{t_task_service_imap:net.tcp.service[imap,{HOST.CONN},{$I_IMAP_PORT}].avg({$T_IMAP_PERF_TIME})}&gt;{$T_IMAP_PERF_THRESH}</expression>
             <name>Telnet: Service response time is too high on {HOST.NAME}</name>
             <url/>
             <status>0</status>
@@ -257,7 +204,7 @@ This could be due to high link congestion, high system load or a great distance 
             <dependencies>
                 <dependency>
                     <name>Telnet: Service is down on {HOST.NAME}</name>
-                    <expression>{t_mod_service_imap:net.tcp.service[imap,{HOST.CONN},{$I_IMAP_PORT}].max({$T_IMAP_STATE_TIME})}=0</expression>
+                    <expression>{t_task_service_imap:net.tcp.service[imap,{HOST.CONN},{$I_IMAP_PORT}].max({$T_IMAP_STATE_TIME})}=0</expression>
                 </dependency>
             </dependencies>
         </trigger>
@@ -289,7 +236,7 @@ This could be due to high link congestion, high system load or a great distance 
                     <calc_fnc>1</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>t_mod_service_imap</host>
+                        <host>t_task_service_imap</host>
                         <key>ImapPerfThresh[{$T_IMAP_PERF_THRESH}]</key>
                     </item>
                 </graph_item>
@@ -301,7 +248,7 @@ This could be due to high link congestion, high system load or a great distance 
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>t_mod_service_imap</host>
+                        <host>t_task_service_imap</host>
                         <key>net.tcp.service.perf[imap,{HOST.CONN},{$I_IMAP_PORT}]</key>
                     </item>
                 </graph_item>
@@ -333,7 +280,7 @@ This could be due to high link congestion, high system load or a great distance 
                     <calc_fnc>1</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>t_mod_service_imap</host>
+                        <host>t_task_service_imap</host>
                         <key>net.tcp.service[imap,{HOST.CONN},{$I_IMAP_PORT}]</key>
                     </item>
                 </graph_item>
