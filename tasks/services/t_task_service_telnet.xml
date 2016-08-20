@@ -162,7 +162,7 @@
             <macros>
                 <macro>
                     <macro>{$I_TELNET_PORT}</macro>
-                    <value>21</value>
+                    <value>23</value>
                 </macro>
                 <macro>
                     <macro>{$T_TELNET_PERF_THRESH}</macro>
