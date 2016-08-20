@@ -9,8 +9,8 @@
     </groups>
     <templates>
         <template>
-            <template>t_task_service_imap</template>
-            <name>Template::Task::Service::IMAP</name>
+            <template>t_task_service_pop</template>
+            <name>Template::Task::Service::POP</name>
             <description/>
             <groups>
                 <group>
@@ -19,20 +19,20 @@
             </groups>
             <applications>
                 <application>
-                    <name>IMAP::Metadata</name>
+                    <name>POP::Metadata</name>
                 </application>
                 <application>
-                    <name>IMAP::Metrics</name>
+                    <name>POP::Metrics</name>
                 </application>
             </applications>
             <items>
                 <item>
-                    <name>IMAP: response time threshold</name>
+                    <name>POP: response time threshold</name>
                     <type>15</type>
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>ImapPerfThresh[{$T_IMAP_PERF_THRESH}]</key>
+                    <key>PopPerfThresh[{$T_POP_PERF_THRESH}]</key>
                     <delay>300</delay>
                     <history>1</history>
                     <trends>365</trends>
@@ -50,7 +50,7 @@
                     <snmpv3_privpassphrase/>
                     <formula>1</formula>
                     <delay_flex/>
-                    <params>{$T_IMAP_PERF_THRESH}</params>
+                    <params>{$T_POP_PERF_THRESH}</params>
                     <ipmi_sensor/>
                     <data_type>0</data_type>
                     <authtype>0</authtype>
@@ -59,23 +59,23 @@
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description>Holds the currently configured IMAP response time threshold used in triggers.</description>
+                    <description>Holds the currently configured POP response time threshold used in triggers.</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>IMAP::Metadata</name>
+                            <name>POP::Metadata</name>
                         </application>
                     </applications>
                     <valuemap/>
                     <logtimefmt/>
                 </item>
                 <item>
-                    <name>IMAP: service performance</name>
+                    <name>POP: service performance</name>
                     <type>3</type>
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>net.tcp.service.perf[imap,{HOST.CONN},{$I_IMAP_PORT}]</key>
+                    <key>net.tcp.service.perf[pop,{HOST.CONN},{$I_POP_PORT}]</key>
                     <delay>60</delay>
                     <history>7</history>
                     <trends>365</trends>
@@ -102,23 +102,23 @@
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description>Checks IMAP service performance by timing the creation of an IMAP session on port {$I_IMAP_PORT} .</description>
+                    <description>Checks POP service performance by timing the creation of an POP session on port {$I_POP_PORT} .</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>IMAP::Metrics</name>
+                            <name>POP::Metrics</name>
                         </application>
                     </applications>
                     <valuemap/>
                     <logtimefmt/>
                 </item>
                 <item>
-                    <name>IMAP: service state</name>
+                    <name>POP: service state</name>
                     <type>3</type>
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>net.tcp.service[imap,{HOST.CONN},{$I_IMAP_PORT}]</key>
+                    <key>net.tcp.service[pop,{HOST.CONN},{$I_POP_PORT}]</key>
                     <delay>60</delay>
                     <history>7</history>
                     <trends>365</trends>
@@ -145,11 +145,11 @@
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description>Checks IMAP service state by creating a TCP connection on port {$I_IMAP_PORT} and expects the first 4 characters of the response to be “* OK”, then sends “a1 LOGOUT\r\n”.</description>
+                    <description>Creates a TCP connection on port {$I_POP_PORT} and expects the first 3 characters of the response to be “+OK”, then sends “QUIT\r\n”.</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>IMAP::Metrics</name>
+                            <name>POP::Metrics</name>
                         </application>
                     </applications>
                     <valuemap>
@@ -161,19 +161,19 @@
             <discovery_rules/>
             <macros>
                 <macro>
-                    <macro>{$I_IMAP_PORT}</macro>
-                    <value>143</value>
+                    <macro>{$I_POP_PORT}</macro>
+                    <value>110</value>
                 </macro>
                 <macro>
-                    <macro>{$T_IMAP_PERF_THRESH}</macro>
+                    <macro>{$T_POP_PERF_THRESH}</macro>
                     <value>1</value>
                 </macro>
                 <macro>
-                    <macro>{$T_IMAP_PERF_TIME}</macro>
+                    <macro>{$T_POP_PERF_TIME}</macro>
                     <value>5m</value>
                 </macro>
                 <macro>
-                    <macro>{$T_IMAP_STATE_TIME}</macro>
+                    <macro>{$T_POP_STATE_TIME}</macro>
                     <value>#3</value>
                 </macro>
             </macros>
@@ -182,36 +182,36 @@
     </templates>
     <triggers>
         <trigger>
-            <expression>{t_task_service_imap:net.tcp.service[imap,{HOST.CONN},{$I_IMAP_PORT}].max({$T_IMAP_STATE_TIME})}=0</expression>
-            <name>IMAP: Service is down on {HOST.NAME}</name>
+            <expression>{t_task_service_pop:net.tcp.service[pop,{HOST.CONN},{$I_POP_PORT}].max({$T_POP_STATE_TIME})}=0</expression>
+            <name>POP: Service is down on {HOST.NAME}</name>
             <url/>
             <status>0</status>
             <priority>3</priority>
-            <description>The IMAP service on port {$I_IMAP_PORT} is not responding or is returning an invalid response.&#13;
-This could be caused by a firewall blocking the traffic, or a faulty imap reponse.</description>
+            <description>The POP service on port {$I_POP_PORT} is not responding or is returning an invalid response.&#13;
+This could be caused by a firewall blocking the traffic, or a faulty pop reponse.</description>
             <type>0</type>
             <dependencies/>
         </trigger>
         <trigger>
-            <expression>{t_task_service_imap:net.tcp.service[imap,{HOST.CONN},{$I_IMAP_PORT}].avg({$T_IMAP_PERF_TIME})}&gt;{$T_IMAP_PERF_THRESH}</expression>
-            <name>IMAP: Service response time is too high on {HOST.NAME}</name>
+            <expression>{t_task_service_pop:net.tcp.service[pop,{HOST.CONN},{$I_POP_PORT}].avg({$T_POP_PERF_TIME})}&gt;{$T_POP_PERF_THRESH}</expression>
+            <name>POP: Service response time is too high on {HOST.NAME}</name>
             <url/>
             <status>0</status>
             <priority>2</priority>
-            <description>The IMAP service on port {$I_IMAP_PORT} is responding too slowly to new connection attempts.&#13;
+            <description>The POP service on port {$I_POP_PORT} is responding too slowly to new connection attempts.&#13;
 This could be due to high link congestion, high system load or a great distance to the host.</description>
             <type>0</type>
             <dependencies>
                 <dependency>
-                    <name>IMAP: Service is down on {HOST.NAME}</name>
-                    <expression>{t_task_service_imap:net.tcp.service[imap,{HOST.CONN},{$I_IMAP_PORT}].max({$T_IMAP_STATE_TIME})}=0</expression>
+                    <name>POP: Service is down on {HOST.NAME}</name>
+                    <expression>{t_task_service_pop:net.tcp.service[pop,{HOST.CONN},{$I_POP_PORT}].max({$T_POP_STATE_TIME})}=0</expression>
                 </dependency>
             </dependencies>
         </trigger>
     </triggers>
     <graphs>
         <graph>
-            <name>IMAP: Performance</name>
+            <name>POP: Performance</name>
             <width>900</width>
             <height>200</height>
             <yaxismin>0.0000</yaxismin>
@@ -236,8 +236,8 @@ This could be due to high link congestion, high system load or a great distance 
                     <calc_fnc>1</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>t_task_service_imap</host>
-                        <key>ImapPerfThresh[{$T_IMAP_PERF_THRESH}]</key>
+                        <host>t_task_service_pop</host>
+                        <key>PopPerfThresh[{$T_POP_PERF_THRESH}]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -248,14 +248,14 @@ This could be due to high link congestion, high system load or a great distance 
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>t_task_service_imap</host>
-                        <key>net.tcp.service.perf[imap,{HOST.CONN},{$I_IMAP_PORT}]</key>
+                        <host>t_task_service_pop</host>
+                        <key>net.tcp.service.perf[pop,{HOST.CONN},{$I_POP_PORT}]</key>
                     </item>
                 </graph_item>
             </graph_items>
         </graph>
         <graph>
-            <name>IMAP: Service state (1=Up, 0=Down)</name>
+            <name>POP: Service state (1=Up, 0=Down)</name>
             <width>900</width>
             <height>200</height>
             <yaxismin>0.0000</yaxismin>
@@ -280,8 +280,8 @@ This could be due to high link congestion, high system load or a great distance 
                     <calc_fnc>1</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>t_task_service_imap</host>
-                        <key>net.tcp.service[imap,{HOST.CONN},{$I_IMAP_PORT}]</key>
+                        <host>t_task_service_pop</host>
+                        <key>net.tcp.service[pop,{HOST.CONN},{$I_POP_PORT}]</key>
                     </item>
                 </graph_item>
             </graph_items>
