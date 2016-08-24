@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>3.0</version>
+    <date>2016-08-24T16:08:31Z</date>
+    <groups>
+        <group>
+            <name>Templates::Tasks::Apps::Mon</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>t_task_app_mon_zabbixagent</template>
+            <name>Template::Task::App::Mon::ZabbixAgent</name>
+            <description>Monitors Zabbix Agent properties.</description>
+            <groups>
+                <group>
+                    <name>Templates::Tasks::Apps::Mon</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Zabbix::Metadata</name>
+                </application>
+                <application>
+                    <name>Zabbix::Metrics</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Zabbix: agent hostname</name>
+                    <type>0</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>agent.hostname</key>
+                    <delay>3600</delay>
+                    <history>7</history>
+                    <trends>0</trends>
+                    <status>0</status>
+                    <value_type>1</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description>The hostname that is configured for the Zabbix agent.</description>
+                    <inventory_link>4</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Zabbix::Metrics</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                </item>
+                <item>
+                    <name>Zabbix: agent version</name>
+                    <type>7</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>agent.version</key>
+                    <delay>3600</delay>
+                    <history>7</history>
+                    <trends>0</trends>
+                    <status>0</status>
+                    <value_type>1</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description>Version of the Zabbix agent</description>
+                    <inventory_link>22</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Zabbix::Metrics</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                </item>
+            </items>
+            <discovery_rules/>
+            <macros/>
+            <templates/>
+            <screens/>
+        </template>
+    </templates>
+    <triggers>
+        <trigger>
+            <expression>{t_task_app_mon_zabbixagent:agent.version.diff(0)}&gt;0</expression>
+            <name>Zabbix: Version of agent was changed on {HOST.NAME}</name>
+            <url/>
+            <status>0</status>
+            <priority>1</priority>
+            <description>The version of the Zabbix agent has recently changed.&#13;
+&#13;
+Current version: {ITEM.LASTVALUE1}</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+    </triggers>
+</zabbix_export>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>3.0</version>
+    <date>2016-08-24T16:07:28Z</date>
+    <groups>
+        <group>
+            <name>Templates::Tasks::Availability</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>t_task_availability_zabbixagent</template>
+            <name>Template::Task::Availability::ZabbixAgent</name>
+            <description>Checks Zabbix agent availability status.</description>
+            <groups>
+                <group>
+                    <name>Templates::Tasks::Availability</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Zabbix::Metadata</name>
+                </application>
+                <application>
+                    <name>Zabbix::Metrics</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Zabbix: agent ping (active)</name>
+                    <type>7</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>agent.ping</key>
+                    <delay>60</delay>
+                    <history>7</history>
+                    <trends>365</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description>Zabbix active agent availability check. &#13;
+Returns 1 if the agent responds, returns nothing if the agent doesn't respond.</description>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Zabbix::Metrics</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Zabbix agent ping status</name>
+                    </valuemap>
+                    <logtimefmt/>
+                </item>
+                <item>
+                    <name>Zabbix: agent availability (passive)</name>
+                    <type>5</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>zabbix[host,agent,available]</key>
+                    <delay>60</delay>
+                    <history>7</history>
+                    <trends>365</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description>Checks Zabbix passive check availability on the agent. If no passive checks are configured for the host, it will report an unknown state.&#13;
+&#13;
+The item value is calculated according to configuration parameters regarding host unreachability/unavailability. &#13;
+&#13;
+See https://www.zabbix.com/documentation/3.0/manual/appendix/items/unreachability for details.</description>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Zabbix::Metrics</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Host availability</name>
+                    </valuemap>
+                    <logtimefmt/>
+                </item>
+            </items>
+            <discovery_rules/>
+            <macros>
+                <macro>
+                    <macro>{$T_ZBX_PING_THRESH}</macro>
+                    <value>5m</value>
+                </macro>
+                <macro>
+                    <macro>{$T_ZBX_UNAVAILABLE_THRESH}</macro>
+                    <value>3m</value>
+                </macro>
+                <macro>
+                    <macro>{$T_ZBX_UNKNOWN_THRESH}</macro>
+                    <value>3m</value>
+                </macro>
+            </macros>
+            <templates/>
+            <screens/>
+        </template>
+    </templates>
+    <triggers>
+        <trigger>
+            <expression>{t_task_availability_zabbixagent:agent.ping.nodata({$T_ZBX_PING_THRESH})}=1</expression>
+            <name>Zabbix: Agent is not responding on {HOST.NAME}</name>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description>The Zabbix agent is not sending responses to agent.ping requests.&#13;
+The agent might be down or there could be network issues between the agent and the Zabbix server.</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{t_task_availability_zabbixagent:zabbix[host,agent,available].max({$T_ZBX_UNAVAILABLE_THRESH})}=0</expression>
+            <name>Zabbix: Passive checks are unavailable on {HOST.NAME}</name>
+            <url>https://www.zabbix.com/documentation/3.0/manual/appendix/items/unreachability</url>
+            <status>0</status>
+            <priority>2</priority>
+            <description>Passive item checks for the Zabbix agent are unavailable at this time.</description>
+            <type>0</type>
+            <dependencies>
+                <dependency>
+                    <name>Zabbix: Agent is not responding on {HOST.NAME}</name>
+                    <expression>{t_task_availability_zabbixagent:agent.ping.nodata({$T_ZBX_PING_THRESH})}=1</expression>
+                </dependency>
+            </dependencies>
+        </trigger>
+        <trigger>
+            <expression>{t_task_availability_zabbixagent:zabbix[host,agent,available].min({$T_ZBX_UNKNOWN_THRESH})}=2</expression>
+            <name>Zabbix: Passive checks status is unknown on {HOST.NAME}</name>
+            <url/>
+            <status>0</status>
+            <priority>1</priority>
+            <description>Passive item checks for the Zabbix agent are  in an unknown state at this time. Passive checks might not be configured on the host or the status may be unknown because of an issue with an intermediate Zabbix Proxy.&#13;
+&#13;
+See the Zabbix manual for further clarification for this status.&#13;
+&#13;
+https://www.zabbix.com/documentation/3.0/manual/appendix/items/unreachability</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+    </triggers>
+    <graphs>
+        <graph>
+            <name>Zabbix: Passive check status</name>
+            <width>900</width>
+            <height>200</height>
+            <yaxismin>0.0000</yaxismin>
+            <yaxismax>2.0000</yaxismax>
+            <show_work_period>1</show_work_period>
+            <show_triggers>0</show_triggers>
+            <type>0</type>
+            <show_legend>1</show_legend>
+            <show_3d>0</show_3d>
+            <percent_left>0.0000</percent_left>
+            <percent_right>0.0000</percent_right>
+            <ymin_type_1>1</ymin_type_1>
+            <ymax_type_1>1</ymax_type_1>
+            <ymin_item_1>0</ymin_item_1>
+            <ymax_item_1>0</ymax_item_1>
+            <graph_items>
+                <graph_item>
+                    <sortorder>0</sortorder>
+                    <drawtype>5</drawtype>
+                    <color>CC0000</color>
+                    <yaxisside>0</yaxisside>
+                    <calc_fnc>7</calc_fnc>
+                    <type>0</type>
+                    <item>
+                        <host>t_task_availability_zabbixagent</host>
+                        <key>zabbix[host,agent,available]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+    <value_maps>
+        <value_map>
+            <name>Host availability</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>not available</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>available</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>unknown</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>Zabbix agent ping status</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Up</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
