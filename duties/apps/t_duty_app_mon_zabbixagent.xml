@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>3.0</version>
+    <date>2016-08-24T16:10:12Z</date>
+    <groups>
+        <group>
+            <name>Templates::Duties::Apps::Mon</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>t_duty_app_mon_zabbixagent</template>
+            <name>Template::Duty::App::Mon::ZabbixAgent</name>
+            <description>Monitors all aspects of the Zabbix Agent</description>
+            <groups>
+                <group>
+                    <name>Templates::Duties::Apps::Mon</name>
+                </group>
+            </groups>
+            <applications/>
+            <items/>
+            <discovery_rules/>
+            <macros/>
+            <templates>
+                <template>
+                    <name>t_task_app_mon_zabbixagent</name>
+                </template>
+                <template>
+                    <name>t_task_app_mon_zabbixhost</name>
+                </template>
+                <template>
+                    <name>t_task_availability_zabbixagent</name>
+                </template>
+            </templates>
+            <screens/>
+        </template>
+    </templates>
+</zabbix_export>
