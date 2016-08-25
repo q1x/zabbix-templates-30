@@ -21,8 +21,7 @@ To understand the design pattern used to design these templates, please have a l
 
 Navigate the tree or follow these links to see the templates that are available within this repository.
 
-- [Task templates](https://github.com/q1x/zabbix-templates-30/tree/master/tasks)
-- [Duty templates](https://github.com/q1x/zabbix-templates-30/tree/master/duties)
-- [Role templates](https://github.com/q1x/zabbix-templates-30/tree/master/roles)
 - [Profile templates](https://github.com/q1x/zabbix-templates-30/tree/master/profiles)
-
+- [Role templates](https://github.com/q1x/zabbix-templates-30/tree/master/roles)
+- [Duty templates](https://github.com/q1x/zabbix-templates-30/tree/master/duties)
+- [Task templates](https://github.com/q1x/zabbix-templates-30/tree/master/tasks)
