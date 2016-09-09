@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>3.0</version>
+    <date>2016-09-09T07:14:40Z</date>
+    <groups>
+        <group>
+            <name>Templates::Duties::Apps::DB</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>t_duty_app_db_mysql</template>
+            <name>Template::Duty::App::DB::Mysql</name>
+            <description>Monitors all aspects of MySQL server.</description>
+            <groups>
+                <group>
+                    <name>Templates::Duties::Apps::DB</name>
+                </group>
+            </groups>
+            <applications/>
+            <items/>
+            <discovery_rules/>
+            <macros/>
+            <templates>
+                <template>
+                    <name>t_task_app_db_mysql</name>
+                </template>
+                <template>
+                    <name>t_task_app_db_mysql_perf</name>
+                </template>
+                <template>
+                    <name>t_task_service_mysql</name>
+                </template>
+            </templates>
+            <screens/>
+        </template>
+    </templates>
+</zabbix_export>
