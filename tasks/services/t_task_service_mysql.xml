@@ -19,10 +19,10 @@
             </groups>
             <applications>
                 <application>
-                    <name>MYSQL::Metadata</name>
+                    <name>Mysql::Metadata</name>
                 </application>
                 <application>
-                    <name>MYSQL::Metrics</name>
+                    <name>Mysql::Metrics</name>
                 </application>
             </applications>
             <items>
