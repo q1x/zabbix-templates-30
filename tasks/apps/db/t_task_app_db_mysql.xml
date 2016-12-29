@@ -166,7 +166,7 @@
             <templates/>
             <screens>
                 <screen>
-                    <name>MySQL performance</name>
+                    <name>Mysql performance</name>
                     <hsize>2</hsize>
                     <vsize>1</vsize>
                     <screen_items/>
@@ -177,7 +177,7 @@
     <triggers>
         <trigger>
             <expression>{t_task_app_db_mysql:mysql.ping.last(0)}=0</expression>
-            <name>MySQL is down</name>
+            <name>Mysql is down</name>
             <url/>
             <status>0</status>
             <priority>2</priority>
