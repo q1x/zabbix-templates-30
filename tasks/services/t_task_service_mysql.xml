@@ -27,7 +27,7 @@
             </applications>
             <items>
                 <item>
-                    <name>MYSQL: response time threshold</name>
+                    <name>Mysql: response time threshold</name>
                     <type>15</type>
                     <snmp_community/>
                     <multiplier>0</multiplier>
@@ -63,14 +63,14 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>MYSQL::Metadata</name>
+                            <name>Mysql::Metadata</name>
                         </application>
                     </applications>
                     <valuemap/>
                     <logtimefmt/>
                 </item>
                 <item>
-                    <name>MYSQL: service performance</name>
+                    <name>Mysql: service performance</name>
                     <type>3</type>
                     <snmp_community/>
                     <multiplier>0</multiplier>
@@ -102,18 +102,18 @@
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description>Checks MYSQL service performance by timing the creation of a MYSQL session on port {$I_MYSQL_PORT} .</description>
+                    <description>Checks Mysql service performance by timing the creation of a MYSQL session on port {$I_MYSQL_PORT} .</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>MYSQL::Metrics</name>
+                            <name>Mysql::Metrics</name>
                         </application>
                     </applications>
                     <valuemap/>
                     <logtimefmt/>
                 </item>
                 <item>
-                    <name>MYSQL: service state</name>
+                    <name>Mysql: service state</name>
                     <type>3</type>
                     <snmp_community/>
                     <multiplier>0</multiplier>
@@ -149,7 +149,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>MYSQL::Metrics</name>
+                            <name>Mysql::Metrics</name>
                         </application>
                     </applications>
                     <valuemap>
@@ -188,7 +188,7 @@
             <url/>
             <status>0</status>
             <priority>3</priority>
-            <description>The MYSQL service on port {$I_MYSQL_PORT} is not responding or is returning an invalid response.&#13;
+            <description>The Mysql service on port {$I_MYSQL_PORT} is not responding or is returning an invalid response.&#13;
 This could be caused by a firewall blocking the traffic, or a MYSQL service malfunction.</description>
             <type>0</type>
             <dependencies/>
@@ -199,12 +199,12 @@ This could be caused by a firewall blocking the traffic, or a MYSQL service malf
             <url/>
             <status>0</status>
             <priority>2</priority>
-            <description>The MYSQL service on port {$I_MYSQL_PORT} is responding too slowly to new connection attempts.&#13;
+            <description>The Mysql service on port {$I_MYSQL_PORT} is responding too slowly to new connection attempts.&#13;
 This could be due to high link congestion, high system load or a great distance to the host.</description>
             <type>0</type>
             <dependencies>
                 <dependency>
-                    <name>MYSQL: Service is down on {HOST.NAME}</name>
+                    <name>Mysql: Service is down on {HOST.NAME}</name>
                     <expression>{t_task_service_mysql:net.tcp.service[tcp,{HOST.CONN},{$I_MYSQL_PORT}].max({$T_MYSQL_STATE_TIME})}=0</expression>
                 </dependency>
             </dependencies>
@@ -212,7 +212,7 @@ This could be due to high link congestion, high system load or a great distance 
     </triggers>
     <graphs>
         <graph>
-            <name>MYSQL: Performance</name>
+            <name>Mysql: Performance</name>
             <width>900</width>
             <height>200</height>
             <yaxismin>0.0000</yaxismin>
@@ -256,7 +256,7 @@ This could be due to high link congestion, high system load or a great distance 
             </graph_items>
         </graph>
         <graph>
-            <name>MYSQL: Service state (1=Up, 0=Down)</name>
+            <name>Mysql: Service state (1=Up, 0=Down)</name>
             <width>900</width>
             <height>200</height>
             <yaxismin>0.0000</yaxismin>
