@@ -174,7 +174,7 @@
                 </macro>
                 <macro>
                     <macro>{$T_MYSQL_STATE_TIME}</macro>
-                    <value>3</value>
+                    <value>#3</value>
                 </macro>
             </macros>
             <templates/>
