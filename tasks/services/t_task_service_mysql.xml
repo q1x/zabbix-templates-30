@@ -174,7 +174,7 @@
                 </macro>
                 <macro>
                     <macro>{$T_MYSQL_STATE_TIME}</macro>
-                    <value>#3</value>
+                    <value>3</value>
                 </macro>
             </macros>
             <templates/>
@@ -184,7 +184,7 @@
     <triggers>
         <trigger>
             <expression>{t_task_service_mysql:net.tcp.service[tcp,{HOST.CONN},{$I_MYSQL_PORT}].max({$T_MYSQL_STATE_TIME})}=0</expression>
-            <name>MYSQL: Service is down on {HOST.NAME}</name>
+            <name>Mysql: Service is down on {HOST.NAME}</name>
             <url/>
             <status>0</status>
             <priority>3</priority>
@@ -195,7 +195,7 @@ This could be caused by a firewall blocking the traffic, or a MYSQL service malf
         </trigger>
         <trigger>
             <expression>{t_task_service_mysql:net.tcp.service[tcp,{HOST.CONN},{$I_MYSQL_PORT}].avg({$T_MYSQL_PERF_TIME})}&gt;{$T_MYSQL_PERF_THRESH}</expression>
-            <name>MYSQL: Service response time is too high on {HOST.NAME}</name>
+            <name>Mysql: Service response time is too high on {HOST.NAME}</name>
             <url/>
             <status>0</status>
             <priority>2</priority>
