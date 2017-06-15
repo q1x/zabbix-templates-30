@@ -75,7 +75,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>icmppingloss[{HOST.CONN},{$I_PING_PACKETS:LOSS},{$I_PING_INTERVAL:LOSS},{$I_PING_SIZE:LOSS},{$I_PING_TIMEOUT:LOSS}]</key>
+                    <key>icmppingloss[,{$I_PING_PACKETS:LOSS},{$I_PING_INTERVAL:LOSS},{$I_PING_SIZE:LOSS},{$I_PING_TIMEOUT:LOSS}]</key>
                     <delay>60</delay>
                     <history>7</history>
                     <trends>365</trends>
@@ -161,7 +161,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>icmppingsec[{HOST.CONN},{$I_PING_PACKETS:SEC},{$I_PING_INTERVAL:SEC},{$I_PING_SIZE:SEC},{$I_PING_TIMEOUT:SEC}]</key>
+                    <key>icmppingsec[,{$I_PING_PACKETS:SEC},{$I_PING_INTERVAL:SEC},{$I_PING_SIZE:SEC},{$I_PING_TIMEOUT:SEC}]</key>
                     <delay>60</delay>
                     <history>7</history>
                     <trends>365</trends>
@@ -204,7 +204,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>icmpping[{HOST.CONN},{$I_PING_PACKETS:PING},{$I_PING_INTERVAL:PING},{$I_PING_SIZE:PING},{$I_PING_TIMEOUT:PING}]</key>
+                    <key>icmpping[,{$I_PING_PACKETS:PING},{$I_PING_INTERVAL:PING},{$I_PING_SIZE:PING},{$I_PING_TIMEOUT:PING}]</key>
                     <delay>60</delay>
                     <history>7</history>
                     <trends>365</trends>
@@ -292,7 +292,7 @@
     </templates>
     <triggers>
         <trigger>
-            <expression>{t_task_availability_ping:icmppingloss[{HOST.CONN},{$I_PING_PACKETS:LOSS},{$I_PING_INTERVAL:LOSS},{$I_PING_SIZE:LOSS},{$I_PING_TIMEOUT:LOSS}].min({$T_PING_LOSS_TIME})}&gt;{$T_PING_LOSS_THRESH}</expression>
+            <expression>{t_task_availability_ping:icmppingloss[,{$I_PING_PACKETS:LOSS},{$I_PING_INTERVAL:LOSS},{$I_PING_SIZE:LOSS},{$I_PING_TIMEOUT:LOSS}].min({$T_PING_LOSS_TIME})}&gt;{$T_PING_LOSS_THRESH}</expression>
             <name>Ping: loss is too high on {HOST.NAME}</name>
             <url/>
             <status>0</status>
@@ -303,12 +303,12 @@ This could be due to a faulty or flapping link or CPU load on the monitored host
             <dependencies>
                 <dependency>
                     <name>Ping: {HOST.NAME} is not responding to requests</name>
-                    <expression>{t_task_availability_ping:icmpping[{HOST.CONN},{$I_PING_PACKETS:PING},{$I_PING_INTERVAL:PING},{$I_PING_SIZE:PING},{$I_PING_TIMEOUT:PING}].max({$T_PING_PING_TIME})}=0</expression>
+                    <expression>{t_task_availability_ping:icmpping[,{$I_PING_PACKETS:PING},{$I_PING_INTERVAL:PING},{$I_PING_SIZE:PING},{$I_PING_TIMEOUT:PING}].max({$T_PING_PING_TIME})}=0</expression>
                 </dependency>
             </dependencies>
         </trigger>
         <trigger>
-            <expression>{t_task_availability_ping:icmppingsec[{HOST.CONN},{$I_PING_PACKETS:SEC},{$I_PING_INTERVAL:SEC},{$I_PING_SIZE:SEC},{$I_PING_TIMEOUT:SEC}].avg({$T_PING_SEC_TIME})}&gt;{$T_PING_SEC_THRESH}</expression>
+            <expression>{t_task_availability_ping:icmppingsec[,{$I_PING_PACKETS:SEC},{$I_PING_INTERVAL:SEC},{$I_PING_SIZE:SEC},{$I_PING_TIMEOUT:SEC}].avg({$T_PING_SEC_TIME})}&gt;{$T_PING_SEC_THRESH}</expression>
             <name>Ping: response time is too high on {HOST.NAME}</name>
             <url/>
             <status>0</status>
@@ -319,12 +319,12 @@ This could be caused by link congestion, high CPU loads on the host or a great d
             <dependencies>
                 <dependency>
                     <name>Ping: {HOST.NAME} is not responding to requests</name>
-                    <expression>{t_task_availability_ping:icmpping[{HOST.CONN},{$I_PING_PACKETS:PING},{$I_PING_INTERVAL:PING},{$I_PING_SIZE:PING},{$I_PING_TIMEOUT:PING}].max({$T_PING_PING_TIME})}=0</expression>
+                    <expression>{t_task_availability_ping:icmpping[,{$I_PING_PACKETS:PING},{$I_PING_INTERVAL:PING},{$I_PING_SIZE:PING},{$I_PING_TIMEOUT:PING}].max({$T_PING_PING_TIME})}=0</expression>
                 </dependency>
             </dependencies>
         </trigger>
         <trigger>
-            <expression>{t_task_availability_ping:icmpping[{HOST.CONN},{$I_PING_PACKETS:PING},{$I_PING_INTERVAL:PING},{$I_PING_SIZE:PING},{$I_PING_TIMEOUT:PING}].max({$T_PING_PING_TIME})}=0</expression>
+            <expression>{t_task_availability_ping:icmpping[,{$I_PING_PACKETS:PING},{$I_PING_INTERVAL:PING},{$I_PING_SIZE:PING},{$I_PING_TIMEOUT:PING}].max({$T_PING_PING_TIME})}=0</expression>
             <name>Ping: {HOST.NAME} is not responding to requests</name>
             <url/>
             <status>0</status>
@@ -375,7 +375,7 @@ It could be down or ping is being blocked by a firewall.</description>
                     <type>0</type>
                     <item>
                         <host>t_task_availability_ping</host>
-                        <key>icmppingsec[{HOST.CONN},{$I_PING_PACKETS:SEC},{$I_PING_INTERVAL:SEC},{$I_PING_SIZE:SEC},{$I_PING_TIMEOUT:SEC}]</key>
+                        <key>icmppingsec[,{$I_PING_PACKETS:SEC},{$I_PING_INTERVAL:SEC},{$I_PING_SIZE:SEC},{$I_PING_TIMEOUT:SEC}]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -399,7 +399,7 @@ It could be down or ping is being blocked by a firewall.</description>
                     <type>0</type>
                     <item>
                         <host>t_task_availability_ping</host>
-                        <key>icmppingloss[{HOST.CONN},{$I_PING_PACKETS:LOSS},{$I_PING_INTERVAL:LOSS},{$I_PING_SIZE:LOSS},{$I_PING_TIMEOUT:LOSS}]</key>
+                        <key>icmppingloss[,{$I_PING_PACKETS:LOSS},{$I_PING_INTERVAL:LOSS},{$I_PING_SIZE:LOSS},{$I_PING_TIMEOUT:LOSS}]</key>
                     </item>
                 </graph_item>
             </graph_items>
@@ -431,7 +431,7 @@ It could be down or ping is being blocked by a firewall.</description>
                     <type>0</type>
                     <item>
                         <host>t_task_availability_ping</host>
-                        <key>icmpping[{HOST.CONN},{$I_PING_PACKETS:PING},{$I_PING_INTERVAL:PING},{$I_PING_SIZE:PING},{$I_PING_TIMEOUT:PING}]</key>
+                        <key>icmpping[,{$I_PING_PACKETS:PING},{$I_PING_INTERVAL:PING},{$I_PING_SIZE:PING},{$I_PING_TIMEOUT:PING}]</key>
                     </item>
                 </graph_item>
             </graph_items>
